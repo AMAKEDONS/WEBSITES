@@ -4,32 +4,235 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Интернет-магазин спортивного питания "КачайТело"</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #fff5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Стили для шапки */
+        header {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo img {
+            max-width: 70px;
+            max-height: 70px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Навигация */
+        nav {
+            background-color: #ff4500;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Основной контент */
+        .hero {
+            background: linear-gradient(rgba(255, 69, 0, 0.8), rgba(255, 99, 71, 0.8)), url('https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(255, 69, 0, 0.3);
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            display: flex;
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h2 {
+            color: #ff4500;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ff6347;
+            padding-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: #555;
+        }
+        
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            box-shadow: 0 -4px 12px rgba(255, 69, 0, 0.3);
+        }
+        
+        footer p {
+            font-size: 1rem;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <img src="https://raw.githubusercontent.com/AMAKEDONS/WEBSITES/main/logo.png" alt="Логотип КачайТело">
-        <h1>КачайТело</h1>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://raw.githubusercontent.com/AMAKEDONS/WEBSITES/main/logo.png" alt="Логотип КачайТело">
+                </div>
+                <h1>КачайТело</h1>
+            </div>
+        </div>
     </header>
 
     <nav>
-        <a href="about.html">О Компании</a>
-        <a href="catalog.html">Каталог товаров</a>
-        <a href="price.html">Прайс-лист</a>
-        <a href="dost.html">Оплата и доставка</a>
+        <div class="container nav-container">
+            <a href="about.html">О Компании</a>
+            <a href="catalog.html">Каталог товаров</a>
+            <a href="price.html">Прайс-лист</a>
+            <a href="dost.html">Оплата и доставка</a>
+        </div>
     </nav>
 
-    <div>
-        <h2>КачайТело - лучшие добавки для развития твоего тела!</h2>
-        <p>Проверенные и сертифицированные добавки для построения настоящей биомашины. </p>
-    </div>
+    <div class="container">
+        <section class="hero">
+            <h2>КачайТело - лучшие добавки для развития твоего тела!</h2>
+            <p>Проверенные и сертифицированные добавки для построения настоящей биомашины.</p>
+        </section>
 
-    <div>
-        <h2>Что мы предлагаем?</h2>
-        <p>Мы предлагаем широкий ассортимент спортивного питания: протеины, аминокислоты, витамины, жиросжигатели и другие добавки для ваших тренировок. Все товары сертифицированы и проходят строгий контроль качества!</p>
+        <section class="features">
+            <div class="feature-card">
+                <h2>Что мы предлагаем?</h2>
+                <p>Мы предлагаем широкий ассортимент спортивного питания: протеины, аминокислоты, витамины, жиросжигатели и другие добавки для ваших тренировок. Все товары сертифицированы и проходят строгий контроль качества!</p>
+            </div>
+            <div class="feature-card">
+                <h2>Наши преимущества</h2>
+                <p>Только оригинальная продукция от ведущих мировых производителей. Доступные цены, быстрая доставка и профессиональные консультации по подбору спортивного питания.</p>
+            </div>
+        </section>
     </div>
 
     <footer>
-        <p>&copy; 2025 КачайТело. Все права защищены.</p>
+        <div class="container">
+            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+        </div>
     </footer>
 </body>
 </html>
