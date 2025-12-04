@@ -4,81 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прайс-лист - КачайТело</title>
+
     <style>
-        /* ========== Общие стили (точно как в index.html) ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: #fff5f0;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
+        /* === ОБЩИЕ СТИЛИ (те же, что на всех страницах) === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #fff5f0; color: #333; line-height: 1.8; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
         /* Шапка */
         header {
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+            position: relative;
+            z-index: 1000;
         }
-        
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
+        .logo-container { display: flex; align-items: center; }
         .logo {
-            width: 80px;
-            height: 80px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            width: 80px; height: 80px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-        
-        .logo img {
-            max-width: 70px;
-            max-height: 70px;
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
+        .logo img { max-width: 70px; max-height: 70px; }
+        h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+
         /* Навигация */
         nav {
             background-color: #ff4500;
             padding: 15px 0;
             box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
         }
-        
         .nav-container {
             display: flex;
             justify-content: center;
             gap: 30px;
+            flex-wrap: wrap;
         }
-        
         nav a {
             color: white;
             text-decoration: none;
@@ -87,111 +54,137 @@
             border-radius: 25px;
             transition: all 0.3s ease;
         }
-        
         nav a:hover {
             background-color: #ff6347;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        
-        /* Подвал */
+
+        /* Выпадающее меню */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background: #ff4500;
+            color: white;
+        }
+
+        /* Секция прайс-листа */
+        .price-section {
+            padding: 60px 20px;
+            background: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .price-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #ff4500;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Таблица */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 1.05rem;
+            background: white;
+        }
+        th {
+            background: #ff4500;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #fff8f5;
+            transition: background 0.3s;
+        }
+        .category {
+            background: #ffe0d6 !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #d84315;
+        }
+        .price { background-color: #fff9c4; font-weight: bold; }
+        .in-stock { background-color: #c8e6c9; font-weight: bold; }
+        .on-order { background-color: #ffcdd2; font-weight: bold; }
+
+        /* Подвал таблицы */
+        .discount-note {
+            background: linear-gradient(90deg, #ff8a65, #ff7043);
+            color: white;
+            font-weight: bold;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .note {
+            margin-top: 30px;
+            font-style: italic;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Подвал сайта */
         footer {
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
             text-align: center;
             padding: 30px 0;
-            margin-top: 80px;
-            box-shadow: 0 -4px 12px rgba(255, 69, 0, 0.3);
-        }
-        
-        /* ========== Стили специально для прайс-листа ========== */
-        .page-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #ff4500;
-            margin: 50px 0 40px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            margin-bottom: 30px;
-        }
-
-        th {
-            background: #ff4500;
-            color: white;
-            padding: 18px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 14px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fff8f5;
-        }
-
-        .section-row {
-            background: #ff6347 !important;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .price-cell {
-            background-color: #fff9c4 !important;
-            font-weight: bold;
-            color: #d35400;
-        }
-
-        .in-stock {
-            background-color: #c8e6c9 !important;
-            color: #2e7d32;
-            font-weight: bold;
-        }
-
-        .on-order {
-            background-color: #ffcdd2 !important;
-            color: #c62828;
-            font-weight: bold;
-        }
-
-        .discount-footer {
-            background: #ff4500;
-            color: white;
-            font-size: 1.2rem;
-            padding: 20px;
-        }
-
-        .note {
-            text-align: center;
-            font-style: italic;
-            color: #777;
-            margin-top: 20px;
+            margin-top: 50px;
         }
 
         /* Адаптивность */
         @media (max-width: 768px) {
             .header-content { flex-direction: column; text-align: center; }
             .logo-container { margin-bottom: 15px; }
-            .nav-container { flex-direction: column; gap: 12px; }
-            th, td { font-size: 0.9rem; padding: 10px 6px; }
-            .page-title { font-size: 2rem; }
+            .nav-container { flex-direction: column; gap: 0; }
+            nav a, .dropdown > a { border-radius: 0; width: 100%; text-align: center; }
+
+            table { font-size: 0.95rem; }
+            th, td { padding: 10px 6px; }
+            .price-section h2 { font-size: 2.2rem; }
+            .price-section { padding: 40px 15px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Шапка -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
@@ -203,83 +196,86 @@
         </div>
     </header>
 
+    <!-- Навигация -->
     <nav>
         <div class="container nav-container">
             <a href="index.html">Главная</a>
-            <a href="about.html">О Компании</a>
-            <a href="catalog.html">Каталог товаров</a>
+            <a href="about.html">О компании</a>
+            <div class="dropdown">
+                <a href="catalog.html">Каталог товаров ▼</a>
+                <div class="dropdown-content">
+                    <a href="catalog.html#protein">Протеины</a>
+                    <a href="catalog.html#bcaa">BCAA</a>
+                    <a href="catalog.html#creatine">Креатин</a>
+                    <a href="catalog.html#fatburner">Жиросжигатели</a>
+                </div>
+            </div>
             <a href="price.html">Прайс-лист</a>
             <a href="dost.html">Оплата и доставка</a>
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <div class="container">
-        <h2 class="page-title">Прайс-лист</h2>
+        <section class="price-section">
+            <h2>Прайс-лист</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th width="50%">Наименование товара</th>
-                    <th width="20%">Объем/Вес</th>
-                    <th width="15%">Цена (руб.)</th>
-                    <th width="15%">Наличие</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Протеины -->
-                <tr class="section-row"><td colspan="4">ПРОТЕИНЫ</td></tr>
-                <tr><td>Протеин сывороточный (Whey Protein)</td><td>1000 г</td><td class="price-cell">2 500</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Протеин сывороточный (Whey Protein)</td><td>2000 г</td><td class="price-cell">4 200</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Казеиновый протеин</td><td>1000 г</td><td class="price-cell">2 800</td><td class="on-order">Под заказ</td></tr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Наименование товара</th>
+                        <th>Объем/Вес</th>
+                        <th>Цена (руб.)</th>
+                        <th>Наличие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="category"><td colspan="4">ПРОТЕИНЫ</td></tr>
+                    <tr><td>Протеин сывороточный (Whey Protein)</td><td>1000 г</td><td class="price">2 500</td><td class="in-stock">В наличии</td></tr>
+                    <tr><td>Протеин сывороточный (Whey Protein)</td><td>2000 г</td><td class="price">4 200</td><td class="in-stock">В наличии</td></tr>
+                    <tr><td>Казеиновый протеин</td><td>1000 г</td><td class="price">2 800</td><td class="on-order">Под заказ</td></tr>
 
-                <!-- Аминокислоты -->
-                <tr class="section-row"><td colspan="4">АМИНОКИСЛОТЫ</td></tr>
-                <tr><td>BCAA (2:1:1)</td><td>300 г</td><td class="price-cell">1 800</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>BCAA (4:1:1)</td><td>400 г</td><td class="price-cell">2 300</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Комплекс аминокислот</td><td>250 таб.</td><td class="price-cell">1 500</td><td class="on-order">Под заказ</td></tr>
+                    <tr class="category"><td colspan="4">АМИНОКИСЛОТЫ</td></tr>
+                    <tr><td>BCAA (2:1:1)</td><td>300 г</td><td class="price">1 800</td><td class="in-stock">В наличии</td></tr>
+                    <tr><td>BCAA (4:1:1)</td><td>400 г</td><td class="price">2 300</td><td class="in-stock">В наличии</td></tr>
 
-                <!-- Креатин -->
-                <tr class="section-row"><td colspan="4">КРЕАТИН</td></tr>
-                <tr><td>Креатин моногидрат</td><td>300 г</td><td class="price-cell">1 200</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Креатин этил эстер</td><td>200 г</td><td class="price-cell">1 500</td><td class="in-stock">В наличии</td></tr>
+                    <tr class="category"><td colspan="4">КРЕАТИН</td></tr>
+                    <tr><td>Креатин моногидрат</td><td>300 г</td><td class="price">1 200</td><td class="in-stock">В наличии</td></tr>
 
-                <!-- Жиросжигатели -->
-                <tr class="section-row"><td colspan="4">ЖИРОСЖИГАТЕЛИ</td></tr>
-                <tr><td>L-Carnitine жидкий</td><td>500 мл</td><td class="price-cell">1 600</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>L-Carnitine капсулы</td><td>100 капс.</td><td class="price-cell">1 200</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Комплексный жиросжигатель</td><td>90 капс.</td><td class="price-cell">2 500</td><td class="on-order">Под заказ</td></tr>
+                    <tr class="category"><td colspan="4">ЖИРОСЖИГАТЕЛИ</td></tr>
+                    <tr><td>L-Carnitine жидкий</td><td>500 мл</td><td class="price">1 600</td><td class="in-stock">В наличии</td></tr>
+                    <tr><td>Комплексный жиросжигатель</td><td>90 капс.</td><td class="price">2 500</td><td class="on-order">Под заказ</td></tr>
 
-                <!-- Витамины и Омега -->
-                <tr class="section-row"><td colspan="4">ВИТАМИНЫ И ОМЕГА-3</td></tr>
-                <tr><td>Омега-3</td><td>120 капс.</td><td class="price-cell">900</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Витаминный комплекс</td><td>90 таб.</td><td class="price-cell">1 500</td><td class="in-stock">В наличии</td></tr>
+                    <tr class="category"><td colspan="4">ВИТАМИНЫ И ОМЕГА-3</td></tr>
+                    <tr><td>Омега-3</td><td>120 капс.</td><td class="price">900</td><td class="in-stock">В наличии</td></tr>
 
-                <!-- Предтрены -->
-                <tr class="section-row"><td colspan="4">ПРЕДТРЕНИРОВОЧНЫЕ КОМПЛЕКСЫ</td></tr>
-                <tr><td>Предтренировочный комплекс без кофеина</td><td>300 г</td><td class="price-cell">2 200</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Предтренировочный комплекс с кофеином</td><td>250 г</td><td class="price-cell">2 400</td><td class="on-order">Под заказ</td></tr>
+                    <tr class="category"><td colspan="4">ПРЕДТРЕНИРОВОЧНЫЕ КОМПЛЕКСЫ</td></tr>
+                    <tr><td>Предтренировочный комплекс с кофеином</td><td>250 г</td><td class="price">2 400</td><td class="on-order">Под заказ</td></tr>
 
-                <!-- Гейнеры -->
-                <tr class="section-row"><td colspan="4">ГЕЙНЕРЫ</td></tr>
-                <tr><td>Высокоуглеводный гейнер</td><td>1500 г</td><td class="price-cell">2 800</td><td class="in-stock">В наличии</td></tr>
-                <tr><td>Гейнер с креатином</td><td>2000 г</td><td class="price-cell">3 500</td><td class="in-stock">В наличии</td></tr>
-            </tbody>
-            <tfoot>
-                <tr class="discount-footer">
-                    <td colspan="4">
-                        <strong>При покупке от 5000 ₽ — скидка 5% | От 10 000 ₽ — скидка 10%</strong>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+                    <tr class="category"><td colspan="4">ГЕЙНЕРЫ</td></tr>
+                    <tr><td>Высокоуглеводный гейнер</td><td>1500 г</td><td class="price">2 800</td><td class="in-stock">В наличии</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="discount-note">
+                        <td colspan="4">
+                            🔥 При покупке от 5 000 ₽ — скидка 5% | От 10 000 ₽ — скидка 10% 🔥
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
 
-        <p class="note"><strong>Примечание:</strong> Цены указаны в рублях. Актуальное наличие уточняйте у менеджера.</p>
+            <p class="note">
+                <strong>Примечание:</strong> Цены актуальны на декабрь 2025. Наличие уточняйте у менеджера.
+            </p>
+        </section>
     </div>
 
+    <!-- Подвал -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+            <p>© 2025 КачайТело. Все права защищены.</p>
         </div>
     </footer>
+
 </body>
 </html>
