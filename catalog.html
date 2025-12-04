@@ -4,81 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог товаров - КачайТело</title>
+
+    <!-- Подключаем все стили из index.html (чтобы не дублировать) -->
     <style>
-        /* ========== Общие стили (точно как в index.html) ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: #fff5f0;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Шапка */
+        /* === КОПИРУЕМ ВСЕ СТИЛИ ИЗ index.html === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #fff5f0; color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
         header {
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+            position: relative;
+            z-index: 1000;
         }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .logo img {
-            max-width: 70px;
-            max-height: 70px;
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Навигация */
+        .header-content { display: flex; align-items: center; justify-content: space-between; }
+        .logo-container { display: flex; align-items: center; }
+        .logo { width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .logo img { max-width: 70px; max-height: 70px; }
+        h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+
         nav {
             background-color: #ff4500;
             padding: 15px 0;
             box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
         }
-        
         .nav-container {
             display: flex;
             justify-content: center;
             gap: 30px;
+            flex-wrap: wrap;
         }
-        
         nav a {
             color: white;
             text-decoration: none;
@@ -87,109 +45,141 @@
             border-radius: 25px;
             transition: all 0.3s ease;
         }
-        
         nav a:hover {
             background-color: #ff6347;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        
-        /* Подвал */
+
+        /* Выпадающее меню */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background: #ff4500;
+            color: white;
+        }
+
+        /* Tooltip */
+        .tooltip { position: relative; cursor: help; }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background: linear-gradient(135deg, #ff4500, #ff8c42);
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border: 8px solid transparent;
+            border-top-color: #ff4500;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tooltip .tooltiptext h4 { margin-bottom: 8px; font-size: 1.1rem; }
+
+        /* Дрожание */
+        .shake:hover { animation: shake 0.6s ease-in-out; }
+        @keyframes shake {
+            0%,100%{transform:translateX(0)}
+            10%,30%,50%,70%,90%{transform:translateX(-4px)}
+            20%,40%,60%,80%{transform:translateX(4px)}
+        }
+
+        /* Карточки товаров */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255,69,0,0.25);
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-info h3 {
+            color: #ff4500;
+            margin-bottom: 10px;
+        }
+
         footer {
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
             text-align: center;
             padding: 30px 0;
-            margin-top: 80px;
-            box-shadow: 0 -4px 12px rgba(255, 69, 0, 0.3);
-        }
-
-        /* ========== Стили для каталога ========== */
-        .page-title {
-            text-align: center;
-            font-size: 2.8rem;
-            color: #ff4500;
-            margin: 50px 0 40px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(255,69,0,0.2);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-bottom: 4px solid #ff4500;
-        }
-
-        .product-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-info h3 {
-            color: #ff4500;
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #ffe0d6;
-            padding-bottom: 8px;
-        }
-
-        .product-info p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        .product-info strong {
-            color: #ff4500;
-        }
-
-        .price-tag {
-            margin-top: auto;
-            padding: 12px;
-            background: linear-gradient(135deg, #ff4500, #ff6347);
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.3rem;
-            border-radius: 0 0 12px 12px;
+            margin-top: 50px;
         }
 
         /* Адаптивность */
         @media (max-width: 768px) {
             .header-content { flex-direction: column; text-align: center; }
             .logo-container { margin-bottom: 15px; }
-            .nav-container { flex-direction: column; gap: 12px; }
-            .page-title { font-size: 2.2rem; }
+            .nav-container { flex-direction: column; gap: 0; }
+            nav a, .dropdown > a { border-radius: 0; width: 100%; text-align: center; }
+            .dropdown-content { position: static; transform: none; box-shadow: none; background: rgba(255,69,0,0.2); }
             .catalog-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Единая шапка -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
@@ -201,121 +191,115 @@
         </div>
     </header>
 
+    <!-- Навигация с выпадающим меню -->
     <nav>
         <div class="container nav-container">
             <a href="index.html">Главная</a>
             <a href="about.html">О Компании</a>
-            <a href="catalog.html">Каталог товаров</a>
-            <a href="price.html">Прайс-лист</a>
+            <div class="dropdown">
+                <a href="catalog.html">Каталог товаров ▼</a>
+                <div class="dropdown-content">
+                    <a href="#protein">Протеины</a>
+                    <a href="#bcaa">BCAA</a>
+                    <a href="#creatine">Креатин</a>
+                    <a href="#fatburner">Жиросжигатели</a>
+                    <a href="#omega">Омега-3 и витамины</a>
+                </div>
+            </div>
+            <a href="price.html" class="shake">Прайс-лист</a>
             <a href="dost.html">Оплата и доставка</a>
         </div>
     </nav>
 
     <div class="container">
-        <h2 class="page-title">Каталог товаров</h2>
+        <h2 style="text-align:center; margin:40px 0; font-size:2.5rem; color:#ff4500;">Каталог товаров</h2>
 
         <div class="catalog-grid">
+
             <!-- 1 -->
-            <div class="product-card">
-                <img src="https://cdn1.ozone.ru/s3/multimedia-1-z/7480467539.jpg" alt="Whey Protein" class="product-image">
+            <div class="product-card tooltip shake" id="protein">
+                <img src="https://cdn1.ozone.ru/s3/multimedia-1-z/7480467539.jpg" alt="Whey Protein">
                 <div class="product-info">
                     <h3>Протеин сывороточный (Whey Protein)</h3>
-                    <p><strong>Описание:</strong> Высококачественный сывороточный протеин с высоким содержанием белка.</p>
-                    <p><strong>Назначение:</strong> Рост и восстановление мышц после тренировок.</p>
-                    <p><strong>Эффект:</strong> Ускоряет синтез белка, помогает набрать массу.</p>
+                    <p>Самый быстроусвояемый белок для восстановления после тренировки.</p>
                 </div>
-                <div class="price-tag">от 2 500 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Идеален после тренировки</h4>
+                    <p>24–28 г белка на порцию · Быстрое усвоение · Отличные вкусы</p>
+                </span>
             </div>
 
             <!-- 2 -->
-            <div class="product-card">
-                <img src="https://avatars.mds.yandex.net/i?id=c5e3fba8b913ac1713c538029a317755_l-3925790-images-thumbs&n=13" alt="BCAA" class="product-image">
+            <div class="product-card tooltip shake" id="bcaa">
+                <img src="https://avatars.mds.yandex.net/i?id=c5e3fba8b913ac1713c538029a317755_l-3925790-images-thumbs&n=13" alt="BCAA">
                 <div class="product-info">
-                    <h3>BCAA (2:1:1 и 4:1:1)</h3>
-                    <p><strong>Описание:</strong> Аминокислоты с разветвлённой цепью в порошке.</p>
-                    <p><strong>Назначение:</strong> Защита мышц от разрушения на тренировке.</p>
-                    <p><strong>Эффект:</strong> Снижает усталость, ускоряет восстановление.</p>
+                    <h3>BCAA 2:1:1</h3>
+                    <p>Защита мышц от разрушения и быстрое восстановление.</p>
                 </div>
-                <div class="price-tag">от 1 800 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Во время тренировки</h4>
+                    <p>Снижает усталость · Ускоряет восстановление · 5–10 г на порцию</p>
+                </span>
             </div>
 
             <!-- 3 -->
-            <div class="product-card">
-                <img src="https://ir-3.ozone.ru/s3/multimedia-1-q/w1200/7308451106.jpg" alt="Креатин" class="product-image">
+            <div class="product-card tooltip shake" id="creatine">
+                <img src="https://ir-3.ozone.ru/s3/multimedia-1-q/w1200/7308451106.jpg" alt="Креатин">
                 <div class="product-info">
                     <h3>Креатин моногидрат</h3>
-                    <p><strong>Описание:</strong> 100% чистый микронизированный креатин.</p>
-                    <p><strong>Назначение:</strong> Повышение силы и выносливости.</p>
-                    <p><strong>Эффект:</strong> Увеличивает силовые, добавляет объём мышцам.</p>
+                    <p>+5–10% к силовым показателям уже через неделю.</p>
                 </div>
-                <div class="price-tag">от 1 200 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Сила и объём</h4>
+                    <p>Увеличивает силу · Добавляет объём мышцам · 3–5 г в день</p>
+                </span>
             </div>
 
             <!-- 4 -->
-            <div class="product-card">
-                <img src="https://khabarovsk.marketdo4a.com/upload/iblock/984/d85931d6655f007a5d0ffcc4c1f9489c.png" alt="L-Carnitine" class="product-image">
+            <div class="product-card tooltip shake" id="fatburner">
+                <img src="https://khabarovsk.marketdo4a.com/upload/iblock/984/d85931d6655f007a5d0ffcc4c1f9489c.png" alt="L-Carnitine">
                 <div class="product-info">
-                    <h3>L-Carnitine (жидкий и капсулы)</h3>
-                    <p><strong>Описание:</strong> Карнитин для ускорения жиросжигания.</p>
-                    <p><strong>Назначение:</strong> Поддержка сушки и кардио.</p>
-                    <p><strong>Эффект:</strong> Повышает энергию, ускоряет метаболизм жиров.</p>
+                    <h3>L-Carnitine</h3>
+                    <p>Превращает жир в энергию во время кардио.</p>
                 </div>
-                <div class="price-tag">от 1 200 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Для сушки</h4>
+                    <p>Усиливает жиросжигание · Повышает выносливость · 1000–3000 мг перед кардио</p>
+                </span>
             </div>
 
             <!-- 5 -->
-            <div class="product-card">
-                <img src="https://avatars.mds.yandex.net/get-mpic/1538707/2a0000018acd16a4728ae21cd573e843e545/orig" alt="Омега-3" class="product-image">
+            <div class="product-card tooltip shake" id="omega">
+                <img src="https://avatars.mds.yandex.net/get-mpic/1538707/2a0000018acd16a4728ae21cd573e843e545/orig" alt="Омега-3">
                 <div class="product-info">
-                    <h3>Омега-3</h3>
-                    <p><strong>Описание:</strong> Рыбий жир с высоким содержанием EPA и DHA.</p>
-                    <p><strong>Назначение:</strong> Здоровье сердца, суставов, иммунитета.</p>
-                    <p><strong>Эффект:</strong> Снижает воспаление, улучшает восстановление.</p>
+                    <h3>Омега-3 + Витамины</h3>
+                    <p>Здоровье суставов, сердца и иммунитета.</p>
                 </div>
-                <div class="price-tag">900 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Ежедневная поддержка</h4>
+                    <p>Снижает воспаление · Улучшает работу мозга · 1–2 капсулы в день</p>
+                </span>
             </div>
 
             <!-- 6 -->
-            <div class="product-card">
-                <img src="https://avatars.mds.yandex.net/i?id=dec0ee9c770f3df558bb0f8e72ca5e34_l-12164831-images-thumbs&n=13" alt="Предтреник" class="product-image">
+            <div class="product-card tooltip shake">
+                <img src="https://avatars.mds.yandex.net/i?id=dec0ee9c770f3df558bb0f8e72ca5e34_l-12164831-images-thumbs&n=13" alt="Предтреник">
                 <div class="product-info">
                     <h3>Предтренировочный комплекс</h3>
-                    <p><strong>Описание:</strong> Смесь с кофеином, бета-аланином, цитруллином.</p>
-                    <p><strong>Назначение:</strong> Взрыв энергии и концентрации.</p>
-                    <p><strong>Эффект:</strong> Мощный памп, мотивация, выносливость.</p>
+                    <p>Мощный заряд энергии и концентрации.</p>
                 </div>
-                <div class="price-tag">от 2 200 ₽</div>
+                <span class="tooltiptext">
+                    <h4>Перед тренировкой</h4>
+                    <p>Кофеин + бета-аланин + цитруллин · Взрывная энергия на 2 часа</p>
+                </span>
             </div>
 
-            <!-- 7 -->
-            <div class="product-card">
-                <img src="https://cdn1.ozone.ru/s3/multimedia-d/6370978321.jpg" alt="Витамины" class="product-image">
-                <div class="product-info">
-                    <h3>Мультивитаминный комплекс</h3>
-                    <p><strong>Описание:</strong> Полный набор витаминов и минералов.</p>
-                    <p><strong>Назначение:</strong> Поддержка при интенсивных тренировках.</p>
-                    <p><strong>Эффект:</strong> Укрепляет иммунитет, повышает энергию.</p>
-                </div>
-                <div class="price-tag">1 500 ₽</div>
-            </div>
-
-            <!-- 8 -->
-            <div class="product-card">
-                <img src="https://rostov.kingmass.ru/upload/iblock/595/5950d86fe87f6b06740b7bea4315cadd.jpg" alt="Гейнер" class="product-image">
-                <div class="product-info">
-                    <h3>Гейнер (с креатином и без)</h3>
-                    <p><strong>Описание:</strong> Высококалорийная углеводно-белковая смесь.</p>
-                    <p><strong>Назначение:</strong> Набор массы для хардгейнеров.</p>
-                    <p><strong>Эффект:</strong> Быстрое восстановление, прирост веса.</p>
-                </div>
-                <div class="price-tag">от 2 800 ₽</div>
-            </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+            <p>© 2025 КачайТело. Все права защищены.</p>
         </div>
     </footer>
 </body>
