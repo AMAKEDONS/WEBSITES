@@ -4,102 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оплата и доставка - КачайТело</title>
+
     <style>
-        /* ========== Общие стили (как в index.html) ========== */
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif}
-        body{background-color:#fff5f0;color:#333;line-height:1.6}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        /* === ОБЩИЕ СТИЛИ (единые для всего сайта) === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #fff5f0; color: #333; line-height: 1.8; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        header{
-            background:linear-gradient(135deg,#ff4500,#ff6347);
-            color:white;padding:20px 0;
-            box-shadow:0 4px 12px rgba(255,69,0,0.3)
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+            position: relative;
+            z-index: 1000;
         }
-        .header-content{display:flex;align-items:center;justify-content:space-between}
-        .logo-container{display:flex;align-items:center}
-        .logo{
-            width:80px;height:80px;background:white;border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            margin-right:15px;box-shadow:0 2px 8px rgba(0,0,0,0.2)
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .logo img{max-width:70px;max-height:70px}
-        h1{font-size:2.2rem;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+        .logo-container { display: flex; align-items: center; }
+        .logo {
+            width: 80px; height: 80px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .logo img { max-width: 70px; max-height: 70px; }
+        h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
-        nav{
-            background:#ff4500;padding:15px 0;
-            box-shadow:0 2px 8px rgba(255,69,0,0.3)
+        /* Навигация */
+        nav {
+            background-color: #ff4500;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
         }
-        .nav-container{display:flex;justify-content:center;gap:30px}
-        nav a{
-            color:white;text-decoration:none;font-weight:bold;
-            padding:10px 20px;border-radius:25px;transition:all .3s
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        nav a:hover{
-            background:#ff6347;transform:translateY(-2px);
-            box-shadow:0 4px 8px rgba(0,0,0,0.2)
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
-
-        footer{
-            background:linear-gradient(135deg,#ff4500,#ff6347);
-            color:white;text-align:center;padding:40px 0;margin-top:80px;
-            box-shadow:0 -4px 12px rgba(255,69,0,0.3)
-        }
-
-        /* ========== Стили для страницы доставки ========== */
-        .page-title{
-            text-align:center;font-size:2.8rem;color:#ff4500;
-            margin:50px 0 40px;text-shadow:1px 1px 3px rgba(0,0,0,0.2)
-        }
-
-        .info-blocks{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-            gap:30px;margin:40px 0
-        }
-
-        .info-card{
-            background:white;border-radius:12px;padding:30px;
-            box-shadow:0 6px 18px rgba(0,0,0,0.12);
-            transition:transform .3s
-        }
-        .info-card:hover{transform:translateY(-6px)}
-
-        .info-card h3{
-            color:#ff4500;font-size:1.6rem;margin-bottom:20px;
-            border-bottom:3px solid #ffe0d6;padding-bottom:10px;
-            display:flex;align-items:center;gap:12px
+        nav a:hover {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        .info-card ul{
-            list-style:none;padding-left:5px
+        /* Выпадающее меню */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
         }
-        .info-card li{
-            padding:8px 0;display:flex;align-items:flex-start;gap:12px
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
         }
-        .info-card li::before{
-            content:"✅";font-size:1.2rem
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background: #ff4500;
+            color: white;
         }
 
-        .contact-box{
-            background:linear-gradient(135deg,#ff4500,#ff6347);
-            color:white;padding:35px;border-radius:12px;
-            text-align:center;margin:50px 0;box-shadow:0 8px 20px rgba(255,69,0,0.3)
+        /* Основной контент */
+        .delivery-section {
+            padding: 60px 20px;
+            background: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
-        .contact-box h3{font-size:2rem;margin-bottom:20px}
-        .contact-box p{font-size:1.3rem;margin:12px 0}
-        .contact-box strong{color:#fff9c4}
+        .delivery-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #ff4500;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .delivery-section h3 {
+            color: #ff4500;
+            margin: 35px 0 20px;
+            font-size: 1.6rem;
+        }
+        .delivery-section ul, .delivery-section ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .delivery-section li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .contact-info {
+            background: #fff8f5;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255,69,0,0.1);
+        }
 
-        @media (max-width:768px){
-            .header-content{flex-direction:column;text-align:center}
-            .logo-container{margin-bottom:15px}
-            .nav-container{flex-direction:column;gap:12px}
-            .page-title{font-size:2.2rem}
-            .info-blocks{grid-template-columns:1fr}
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .logo-container { margin-bottom: 15px; }
+            .nav-container { flex-direction: column; gap: 0; }
+            nav a, .dropdown > a { border-radius: 0; width: 100%; text-align: center; }
+            .delivery-section { padding: 40px 15px; }
+            .delivery-section h2 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Шапка -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
@@ -111,104 +164,74 @@
         </div>
     </header>
 
+    <!-- Навигация -->
     <nav>
         <div class="container nav-container">
             <a href="index.html">Главная</a>
-            <a href="about.html">О Компании</a>
-            <a href="catalog.html">Каталог товаров</a>
+            <a href="about.html">О компании</a>
+            <div class="dropdown">
+                <a href="catalog.html">Каталог товаров ▼</a>
+                <div class="dropdown-content">
+                    <a href="catalog.html#protein">Протеины</a>
+                    <a href="catalog.html#bcaa">BCAA</a>
+                    <a href="catalog.html#creatine">Креатин</a>
+                    <a href="catalog.html#fatburner">Жиросжигатели</a>
+                </div>
+            </div>
             <a href="price.html">Прайс-лист</a>
             <a href="dost.html">Оплата и доставка</a>
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <div class="container">
-        <h2 class="page-title">Оплата и доставка</h2>
+        <section class="delivery-section">
+            <h2>Оплата и доставка</h2>
 
-        <div class="info-blocks">
+            <h3>Способы оплаты</h3>
+            <ul>
+                <li><strong>Наличными</strong> — при получении заказа (только г. Брянск)</li>
+                <li><strong>Банковской картой</strong> — онлайн-оплата через безопасный шлюз</li>
+                <li><strong>Безналичный расчёт</strong> — для юридических лиц</li>
+            </ul>
 
-            <!-- Способы оплаты -->
-            <div class="info-card">
-                <h3>💳 Способы оплаты</h3>
-                <ul>
-                    <li><strong>Наличными</strong> — при получении (только Брянск)</li>
-                    <li><strong>Банковской картой онлайн</strong> — безопасный платёжный шлюз</li>
-                    <li><strong>Безналичный расчёт</strong> — для юр.лиц (НДС 20%)</li>
-                    <li><strong>Наложенный платёж</strong> — при получении через Почту России</li>
-                </ul>
+            <h3>Доставка по г. Брянск</h3>
+            <ul>
+                <li><strong>Бесплатная доставка</strong> при заказе от 1000 ₽</li>
+                <li>Доставка в день заказа при оформлении до 15:00</li>
+                <li>Самовывоз со склада: г. Брянск, ул. Андрея Рублева, 1</li>
+                <li>Курьерская доставка в удобное время</li>
+            </ul>
+
+            <h3>Доставка по России</h3>
+            <ul>
+                <li><strong>СДЭК</strong> — 2–7 дней, до двери или пункта выдачи</li>
+                <li><strong>Почта России</strong> — 5–14 дней, возможен наложенный платёж</li>
+            </ul>
+
+            <h3>Гарантии</h3>
+            <ul>
+                <li>100% оригинальная продукция</li>
+                <li>Срок годности — не менее 6 месяцев</li>
+                <li>Возврат в течение 14 дней при сохранении упаковки</li>
+                <li>Бесплатная консультация по подбору добавок</li>
+            </ul>
+
+            <div class="contact-info">
+                <h3>Есть вопросы по доставке?</h3>
+                <p><strong>Телефон:</strong> +7 (960) 550-33-07<br>
+                <strong>Email:</strong> delivery@kachaytelo.ru<br>
+                <strong>Время работы:</strong> пн–пт 9:00–18:00, сб 10:00–16:00</p>
             </div>
-
-            <!-- Доставка по Брянску -->
-            <div class="info-card">
-                <h3>🚚 Доставка по Брянску</h3>
-                <ul>
-                    <li><strong>Бесплатно</strong> при заказе от 1000 ₽</li>
-                    <li>В день заказа — если оформить до 15:00</li>
-                    <li>Самовывоз — г. Брянск, ул. Андрея Рублева, 1</li>
-                    <li>Курьер в удобное время (с 10:00 до 21:00)</li>
-                </ul>
-            </div>
-
-            <!-- Почта России -->
-            <div class="info-card">
-                <h3>📮 Почта России</h3>
-                <ul>
-                    <li>По всей России</li>
-                    <li>Срок: 5–14 дней</li>
-                    <li>Возможен наложенный платёж</li>
-                    <li>Стоимость по тарифам Почты России</li>
-                </ul>
-            </div>
-
-            <!-- СДЭК -->
-            <div class="info-card">
-                <h3>🚛 СДЭК (рекомендуем)</h3>
-                <ul>
-                    <li>Срок: 2–7 дней</li>
-                    <li>Более 1000 ПВЗ по России</li>
-                    <li>Курьер до двери</li>
-                    <li>Онлайн-трекинг 24/7</li>
-                </ul>
-            </div>
-
-            <!-- Гарантии -->
-            <div class="info-card">
-                <h3>🛡️ Наши гарантии</h3>
-                <ul>
-                    <li>100% оригинальная продукция</li>
-                    <li>Срок годности не менее 6 месяцев</li>
-                    <li>Возврат в течение 14 дней (заводская упаковка)</li>
-                    <li>Бесплатная консультация по подбору</li>
-                </ul>
-            </div>
-
-            <!-- Как заказать -->
-            <div class="info-card">
-                <h3>📋 Как оформить заказ</h3>
-                <ol style="padding-left:20px">
-                    <li>Выберите товары в <a href="catalog.html" style="color:#ff4500;font-weight:bold">каталоге</a></li>
-                    <li>Добавьте в корзину</li>
-                    <li>Перейдите в корзину → «Оформить заказ»</li>
-                    <li>Выберите способ оплаты и доставки</li>
-                    <li>Менеджер свяжется с вами для подтверждения</li>
-                </ol>
-            </div>
-
-        </div>
-
-        <!-- Контактный блок -->
-        <div class="contact-box">
-            <h3>📞 Остались вопросы?</h3>
-            <p><strong>Телефон:</strong> +7 (960) 550-33-07</p>
-            <p><strong>Email:</strong> delivery@kachaytelo.ru</p>
-            <p><strong>Время работы:</strong> пн–пт 9:00–18:00 • сб 10:00–16:00</p>
-            <p>Мы всегда на связи и готовы помочь!</p>
-        </div>
+        </section>
     </div>
 
+    <!-- Подвал -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+            <p>© 2025 КачайТело. Все права защищены.</p>
         </div>
     </footer>
+
 </body>
 </html>
