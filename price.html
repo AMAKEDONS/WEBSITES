@@ -4,24 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прайс-лист - КачайТело</title>
+    <style>
+        /* ========== Общие стили (точно как в index.html) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #fff5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo img {
+            max-width: 70px;
+            max-height: 70px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Навигация */
+        nav {
+            background-color: #ff4500;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 80px;
+            box-shadow: 0 -4px 12px rgba(255, 69, 0, 0.3);
+        }
+        
+        /* ========== Стили специально для прайс-листа ========== */
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ff4500;
+            margin: 50px 0 40px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        th {
+            background: #ff4500;
+            color: white;
+            padding: 18px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff8f5;
+        }
+
+        .section-row {
+            background: #ff6347 !important;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .price-cell {
+            background-color: #fff9c4 !important;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        .in-stock {
+            background-color: #c8e6c9 !important;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .on-order {
+            background-color: #ffcdd2 !important;
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .discount-footer {
+            background: #ff4500;
+            color: white;
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+
+        .note {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .logo-container { margin-bottom: 15px; }
+            .nav-container { flex-direction: column; gap: 12px; }
+            th, td { font-size: 0.9rem; padding: 10px 6px; }
+            .page-title { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <img src="https://raw.githubusercontent.com/AMAKEDONS/WEBSITES/main/logo.png" alt="Логотип КачайТело">
-        <h1>КачайТело</h1>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://raw.githubusercontent.com/AMAKEDONS/WEBSITES/main/logo.png" alt="Логотип КачайТело">
+                </div>
+                <h1>КачайТело</h1>
+            </div>
+        </div>
     </header>
+
     <nav>
-        <a href="index.html">Главная</a>
-        <a href="about.html">О Компании</a>
-        <a href="catalog.html">Каталог товаров</a>
-        <a href="dost.html">Оплата и доставка</a>
+        <div class="container nav-container">
+            <a href="index.html">Главная</a>
+            <a href="about.html">О Компании</a>
+            <a href="catalog.html">Каталог товаров</a>
+            <a href="price.html">Прайс-лист</a>
+            <a href="dost.html">Оплата и доставка</a>
+        </div>
     </nav>
-    <div>
-        <h2>Прайс-лист</h2>
-        
-        <table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+    <div class="container">
+        <h2 class="page-title">Прайс-лист</h2>
+
+        <table>
             <thead>
-                <tr bgcolor="#4CAF50">
+                <tr>
                     <th width="50%">Наименование товара</th>
                     <th width="20%">Объем/Вес</th>
                     <th width="15%">Цена (руб.)</th>
@@ -30,155 +227,59 @@
             </thead>
             <tbody>
                 <!-- Протеины -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>ПРОТЕИНЫ</strong></td>
-                </tr>
-                <tr>
-                    <td>Протеин сывороточный (Whey Protein)</td>
-                    <td>1000 г</td>
-                    <td bgcolor="#FFF9C4">2 500</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Протеин сывороточный (Whey Protein)</td>
-                    <td>2000 г</td>
-                    <td bgcolor="#FFF9C4">4 200</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Казеиновый протеин</td>
-                    <td>1000 г</td>
-                    <td bgcolor="#FFF9C4">2 800</td>
-                    <td bgcolor="#FFCDD2">Под заказ</td>
-                </tr>
-                
+                <tr class="section-row"><td colspan="4">ПРОТЕИНЫ</td></tr>
+                <tr><td>Протеин сывороточный (Whey Protein)</td><td>1000 г</td><td class="price-cell">2 500</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Протеин сывороточный (Whey Protein)</td><td>2000 г</td><td class="price-cell">4 200</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Казеиновый протеин</td><td>1000 г</td><td class="price-cell">2 800</td><td class="on-order">Под заказ</td></tr>
+
                 <!-- Аминокислоты -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>АМИНОКИСЛОТЫ</strong></td>
-                </tr>
-                <tr>
-                    <td>BCAA (2:1:1)</td>
-                    <td>300 г</td>
-                    <td bgcolor="#FFF9C4">1 800</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>BCAA (4:1:1)</td>
-                    <td>400 г</td>
-                    <td bgcolor="#FFF9C4">2 300</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Комплекс аминокислот</td>
-                    <td>250 таб.</td>
-                    <td bgcolor="#FFF9C4">1 500</td>
-                    <td bgcolor="#FFCDD2">Под заказ</td>
-                </tr>
-                
+                <tr class="section-row"><td colspan="4">АМИНОКИСЛОТЫ</td></tr>
+                <tr><td>BCAA (2:1:1)</td><td>300 г</td><td class="price-cell">1 800</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>BCAA (4:1:1)</td><td>400 г</td><td class="price-cell">2 300</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Комплекс аминокислот</td><td>250 таб.</td><td class="price-cell">1 500</td><td class="on-order">Под заказ</td></tr>
+
                 <!-- Креатин -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>КРЕАТИН</strong></td>
-                </tr>
-                <tr>
-                    <td>Креатин моногидрат</td>
-                    <td>300 г</td>
-                    <td bgcolor="#FFF9C4">1 200</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Креатин этил эстер</td>
-                    <td>200 г</td>
-                    <td bgcolor="#FFF9C4">1 500</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                
+                <tr class="section-row"><td colspan="4">КРЕАТИН</td></tr>
+                <tr><td>Креатин моногидрат</td><td>300 г</td><td class="price-cell">1 200</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Креатин этил эстер</td><td>200 г</td><td class="price-cell">1 500</td><td class="in-stock">В наличии</td></tr>
+
                 <!-- Жиросжигатели -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>ЖИРОСЖИГАТЕЛИ</strong></td>
-                </tr>
-                <tr>
-                    <td>L-Carnitine жидкий</td>
-                    <td>500 мл</td>
-                    <td bgcolor="#FFF9C4">1 600</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>L-Carnitine капсулы</td>
-                    <td>100 капс.</td>
-                    <td bgcolor="#FFF9C4">1 200</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Комплексный жиросжигатель</td>
-                    <td>90 капс.</td>
-                    <td bgcolor="#FFF9C4">2 500</td>
-                    <td bgcolor="#FFCDD2">Под заказ</td>
-                </tr>
-                
+                <tr class="section-row"><td colspan="4">ЖИРОСЖИГАТЕЛИ</td></tr>
+                <tr><td>L-Carnitine жидкий</td><td>500 мл</td><td class="price-cell">1 600</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>L-Carnitine капсулы</td><td>100 капс.</td><td class="price-cell">1 200</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Комплексный жиросжигатель</td><td>90 капс.</td><td class="price-cell">2 500</td><td class="on-order">Под заказ</td></tr>
+
                 <!-- Витамины и Омега -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>ВИТАМИНЫ И ОМЕГА-3</strong></td>
-                </tr>
-                <tr>
-                    <td>Омега-3</td>
-                    <td>120 капс.</td>
-                    <td bgcolor="#FFF9C4">900</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Витаминный комплекс</td>
-                    <td>90 таб.</td>
-                    <td bgcolor="#FFF9C4">1 500</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                
-                <!-- Предтренировочные комплексы -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>ПРЕДТРЕНИРОВОЧНЫЕ КОМПЛЕКСЫ</strong></td>
-                </tr>
-                <tr>
-                    <td>Предтренировочный комплекс без кофеина</td>
-                    <td>300 г</td>
-                    <td bgcolor="#FFF9C4">2 200</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Предтренировочный комплекс с кофеином</td>
-                    <td>250 г</td>
-                    <td bgcolor="#FFF9C4">2 400</td>
-                    <td bgcolor="#FFCDD2">Под заказ</td>
-                </tr>
-                
+                <tr class="section-row"><td colspan="4">ВИТАМИНЫ И ОМЕГА-3</td></tr>
+                <tr><td>Омега-3</td><td>120 капс.</td><td class="price-cell">900</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Витаминный комплекс</td><td>90 таб.</td><td class="price-cell">1 500</td><td class="in-stock">В наличии</td></tr>
+
+                <!-- Предтрены -->
+                <tr class="section-row"><td colspan="4">ПРЕДТРЕНИРОВОЧНЫЕ КОМПЛЕКСЫ</td></tr>
+                <tr><td>Предтренировочный комплекс без кофеина</td><td>300 г</td><td class="price-cell">2 200</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Предтренировочный комплекс с кофеином</td><td>250 г</td><td class="price-cell">2 400</td><td class="on-order">Под заказ</td></tr>
+
                 <!-- Гейнеры -->
-                <tr bgcolor="#E8F5E9">
-                    <td colspan="4" align="center"><strong>ГЕЙНЕРЫ</strong></td>
-                </tr>
-                <tr>
-                    <td>Высокоуглеводный гейнер</td>
-                    <td>1500 г</td>
-                    <td bgcolor="#FFF9C4">2 800</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
-                <tr>
-                    <td>Гейнер с креатином</td>
-                    <td>2000 г</td>
-                    <td bgcolor="#FFF9C4">3 500</td>
-                    <td bgcolor="#C8E6C9">В наличии</td>
-                </tr>
+                <tr class="section-row"><td colspan="4">ГЕЙНЕРЫ</td></tr>
+                <tr><td>Высокоуглеводный гейнер</td><td>1500 г</td><td class="price-cell">2 800</td><td class="in-stock">В наличии</td></tr>
+                <tr><td>Гейнер с креатином</td><td>2000 г</td><td class="price-cell">3 500</td><td class="in-stock">В наличии</td></tr>
             </tbody>
             <tfoot>
-                <tr bgcolor="#BBDEFB">
-                    <td colspan="4" align="center">
-                        <strong>При покупке от 5000 рублей - скидка 5% | От 10000 рублей - скидка 10%</strong>
+                <tr class="discount-footer">
+                    <td colspan="4">
+                        <strong>При покупке от 5000 ₽ — скидка 5% | От 10 000 ₽ — скидка 10%</strong>
                     </td>
                 </tr>
             </tfoot>
         </table>
-        
-        <p><strong>Примечание:</strong> Цены указаны в рублях. Наличие товаров уточняйте у менеджеров.</p>
+
+        <p class="note"><strong>Примечание:</strong> Цены указаны в рублях. Актуальное наличие уточняйте у менеджера.</p>
     </div>
+
     <footer>
-        <p>© 2025 КачайТело. Все права защищены.</p>
+        <div class="container">
+            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+        </div>
     </footer>
 </body>
 </html>
