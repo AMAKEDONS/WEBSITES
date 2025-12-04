@@ -3,83 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О Компании - КачайТело</title>
+    <title>О компании - КачайТело</title>
+
     <style>
-        /* ========== Единый стиль со всем сайтом (как в index, price, catalog, dost) ========== */
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif}
-        body{background-color:#fff5f0;color:#333;line-height:1.6}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        /* === ОБЩИЕ СТИЛИ (те же, что в index.html и catalog.html) === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #fff5f0; color: #333; line-height: 1.8; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        header{
-            background:linear-gradient(135deg,#ff4500,#ff6347);
-            color:white;padding:20px 0;
-            box-shadow:0 4px 12px rgba(255,69,0,0.3)
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+            position: relative;
+            z-index: 1000;
         }
-        .header-content{display:flex;align-items:center;justify-content:space-between}
-        .logo-container{display:flex;align-items:center}
-        .logo{
-            width:80px;height:80px;background:white;border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            margin-right:15px;box-shadow:0 2px 8px rgba(0,0,0,0.2)
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .logo img{max-width:70px;max-height:70px}
-        h1{font-size:2.2rem;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+        .logo-container { display: flex; align-items: center; }
+        .logo {
+            width: 80px; height: 80px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .logo img { max-width: 70px; max-height: 70px; }
+        h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
-        nav{
-            background:#ff4500;padding:15px 0;
-            box-shadow:0 2px 8px rgba(255,69,0,0.3)
+        /* Навигация */
+        nav {
+            background-color: #ff4500;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
         }
-        .nav-container{display:flex;justify-content:center;gap:30px}
-        nav a{
-            color:white;text-decoration:none;font-weight:bold;
-            padding:10px 20px;border-radius:25px;transition:all .3s
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        nav a:hover{
-            background:#ff6347;transform:translateY(-2px);
-            box-shadow:0 4px 8px rgba(0,0,0,0.2)
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
-
-        footer{
-            background:linear-gradient(135deg,#ff4500,#ff6347);
-            color:white;text-align:center;padding:40px 0;margin-top:100px;
-            box-shadow:0 -4px 12px rgba(255,69,0,0.3)
-        }
-
-        /* ========== Стили только для about (красиво и аккуратно) ========== */
-        .page-title{
-            text-align:center;font-size:2.9rem;color:#ff4500;
-            margin:60px 0 20px;text-shadow:1px 1px 3px rgba(0,0,0,0.2)
-        }
-        .about-content{
-            background:white;padding:40px 50px;border-radius:16px;
-            box-shadow:0 8px 25px rgba(0,0,0,0.12);
-            margin-bottom:60px;font-size:1.1rem
-        }
-        .about-content h2{
-            color:#ff4500;font-size:2rem;margin:35px 0 20px;
-            border-bottom:3px solid #ffe0d6;padding-bottom:10px
-        }
-        .about-content ul{
-            padding-left:25px;margin:20px 0
-        }
-        .about-content li{
-            margin:12px 0;position:relative
-        }
-        .about-content li::marker{
-            color:#ff4500;font-size:1.3em
+        nav a:hover {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        @media (max-width:768px){
-            .header-content{flex-direction:column;text-align:center}
-            .logo-container{margin-bottom:15px}
-            .nav-container{flex-direction:column;gap:12px}
-            .page-title{font-size:2.3rem}
-            .about-content{padding:30px 25px}
+        /* Выпадающее меню (для единообразия) */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background: #ff4500;
+            color: white;
+        }
+
+        /* Основной контент "О компании" */
+        .about-section {
+            padding: 60px 20px;
+            background: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .about-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #ff4500;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .about-section p {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .about-section ul {
+            max-width: 800px;
+            margin: 30px auto;
+            padding-left: 30px;
+        }
+        .about-section ul li {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .about-section ul li::before {
+            content: "💪";
+            position: absolute;
+            left: -30px;
+        }
+
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .logo-container { margin-bottom: 15px; }
+            .nav-container { flex-direction: column; gap: 0; }
+            nav a, .dropdown > a { border-radius: 0; width: 100%; text-align: center; }
+            .about-section h2 { font-size: 2.2rem; }
+            .about-section { padding: 40px 15px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Шапка -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
@@ -91,40 +162,64 @@
         </div>
     </header>
 
+    <!-- Навигация -->
     <nav>
         <div class="container nav-container">
             <a href="index.html">Главная</a>
-            <a href="about.html">О Компании</a>
-            <a href="catalog.html">Каталог товаров</a>
+            <a href="about.html">О компании</a>
+            <div class="dropdown">
+                <a href="catalog.html">Каталог товаров ▼</a>
+                <div class="dropdown-content">
+                    <a href="catalog.html#protein">Протеины</a>
+                    <a href="catalog.html#bcaa">BCAA</a>
+                    <a href="catalog.html#creatine">Креатин</a>
+                    <a href="catalog.html#fatburner">Жиросжигатели</a>
+                </div>
+            </div>
             <a href="price.html">Прайс-лист</a>
             <a href="dost.html">Оплата и доставка</a>
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <div class="container">
-        <h2 class="page-title">О Компании</h2>
-
-        <div class="about-content">
-            <p>КачайТело - интернет-магазин, созданный Данилом Загоруйко в сентябре 2025 года. Наша миссия - помочь каждому человеку раскрыть свой физический потенциал с помощью качественного спортивного питания. Мы стремимся сделать процесс выбора и покупки добавок простым, удобным и надежным.</p>
+        <section class="about-section">
+            <h2>О компании КачайТело</h2>
             
-            <p>Основатель компании, Данил Загоруйко, сам является энтузиастом фитнеса и здорового образа жизни. Его цель - предоставить клиентам только лучшие продукты от проверенных мировых брендов, чтобы каждый мог достичь своих целей в тренировках, будь то набор мышечной массы, улучшение выносливости или поддержание здоровья.</p>
+            <p><strong>КачайТело</strong> — интернет-магазин спортивного питания, созданный в сентябре 2025 года студентом и энтузиастом фитнеса <strong>Данилом Загоруйко</strong>.</p>
             
-            <p>В КачайТело мы гордимся:</p>
+            <p>Наша миссия проста: помочь каждому человеку стать сильнее, здоровее и увереннее в себе с помощью качественных и проверенных спортивных добавок. Мы не просто продаём товар — мы поддерживаем твой путь к идеальному телу.</p>
+            
+            <p>Основатель магазина сам активно тренируется, изучает спортивное питание и знает, что действительно работает. Поэтому в нашем ассортименте — только оригинальная продукция от мировых брендов, с гарантией качества и свежими сроками годности.</p>
+            
+            <h3 style="text-align:center; margin:30px 0; color:#ff4500;">Почему выбирают нас?</h3>
+            
             <ul>
-                <li>Широким ассортиментом продукции: от протеинов и BCAA до витаминов и креатина.</li>
-                <li>Гарантией качества: все товары сертифицированы и проходят строгий контроль.</li>
-                <li>Профессиональной поддержкой: наша команда всегда готова проконсультировать и помочь с выбором.</li>
-                <li>Быстрой доставкой по всей стране и удобными способами оплаты.</li>
+                <li>100% оригинальная продукция с сертификатами</li>
+                <li>Только проверенные бренды и свежие партии</li>
+                <li>Честные цены без накруток</li>
+                <li>Быстрая доставка по всей России</li>
+                <li>Профессиональные консультации по подбору добавок</li>
+                <li>Гарантия возврата и обмена</li>
             </ul>
             
-            <p>Мы верим, что каждый заслуживает быть сильным, здоровым и уверенным в себе. КачайТело - это не просто магазин, это сообщество единомышленников, которые стремятся к совершенству. Присоединяйтесь к нам и начните свой путь к идеальному телу уже сегодня!</p>
-        </div>
+            <p style="text-align:center; font-size:1.3rem; margin-top:40px; color:#ff4500; font-weight:bold;">
+                КачайТело — это не просто магазин.<br>
+                Это сообщество тех, кто хочет быть лучше, чем вчера.
+            </p>
+            
+            <p style="text-align:center; margin-top:30px;">
+                Присоединяйся. Тренируйся. Побеждай. 💪
+            </p>
+        </section>
     </div>
 
+    <!-- Подвал -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 КачайТело. Все права защищены.</p>
+            <p>© 2025 КачайТело. Все права защищены.</p>
         </div>
     </footer>
+
 </body>
 </html>
