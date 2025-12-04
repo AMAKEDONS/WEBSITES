@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Интернет-магазин спортивного питания "КачайТело"</title>
     <style>
-        /* === БАЗОВЫЕ СТИЛИ (были раньше) === */
+        /* === БАЗОВЫЕ СТИЛИ === */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
         body { background-color: #fff5f0; color: #333; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Шапка */
+        /* === АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ ЗАГРУЗКЕ === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate { 
+            opacity: 0; 
+            animation: fadeInUp 0.9s ease-out forwards; 
+        }
+
+        /* Шапка с эффектом вращения логотипа */
         header {
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
@@ -29,17 +40,17 @@
             width: 80px; height: 80px; background: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             margin-right: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        .logo:hover { transform: rotate(360deg) scale(1.15); }
         .logo img { max-width: 70px; max-height: 70px; }
         h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
-        /* === НАВИГАЦИЯ С ВЫПАДАЮЩИМ МЕНЮ === */
+        /* Навигация с плавной прозрачностью и подъёмом */
         nav {
             background-color: #ff4500;
             padding: 15px 0;
             box-shadow: 0 2px 8px rgba(255, 69, 0, 0.3);
-            position: relative;
-            z-index: 999;
         }
         .nav-container {
             display: flex;
@@ -53,19 +64,18 @@
             font-weight: bold;
             padding: 10px 20px;
             border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: all 0.4s ease;
+            opacity: 0.92;
         }
         nav a:hover {
             background-color: #ff6347;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+            opacity: 1;
         }
 
-        /* Выпадающее подменю */
-        .dropdown {
-            position: relative;
-        }
+        /* Выпадающее меню с плавным появлением */
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -73,100 +83,70 @@
             left: 50%;
             transform: translateX(-50%);
             background: white;
-            min-width: 200px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            border-radius: 10px;
+            min-width: 220px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            border-radius: 12px;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s ease;
+            transform: translateX(-50%) translateY(10px);
+            transition: all 0.5s ease;
         }
         .dropdown:hover .dropdown-content {
             display: block;
             opacity: 1;
             visibility: visible;
-        }
-        .dropdown-content a {
-            color: #333;
-            padding: 12px 20px;
-            display: block;
-            transition: background 0.3s;
+            transform: translateX(-50%) translateY(0);
         }
         .dropdown-content a:hover {
             background: #ff4500;
             color: white;
         }
 
-        /* === ВСПЛЫВАЮЩИЕ ПОДСКАЗКИ (tooltip) === */
-        .tooltip {
-            position: relative;
-            cursor: help;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 280px;
-            background: linear-gradient(135deg, #ff4500, #ff8c42);
-            color: white;
-            text-align: center;
-            border-radius: 12px;
-            padding: 15px;
-            position: absolute;
-            z-index: 1000;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -140px;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            transform: translateY(10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -8px;
-            border: 8px solid transparent;
-            border-top-color: #ff4500;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .tooltip .tooltiptext h4 {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        /* Эффекты движения и дрожания */
-        .shake:hover {
-            animation: shake 0.6s ease-in-out;
-        }
+        /* Дрожание для Прайс-листа */
+        .shake:hover { animation: shake 0.7s ease-in-out; }
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-            20%, 40%, 60%, 80% { transform: translateX(4px); }
+            0%,100%{transform:translateX(0)}
+            10%,30%,50%,70%,90%{transform:translateX(-7px)}
+            20%,40%,60%,80%{transform:translateX(7px)}
         }
 
-        /* Карточки с эффектом */
-        .feature-card, .product-card {
-            transition: all 0.4s ease;
-        }
-        .feature-card:hover, .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(255,69,0,0.3);
-        }
-
-        /* Герой-секция */
+        /* Герой-секция с эффектом параллакса и прозрачности */
         .hero {
-            background: linear-gradient(rgba(255,69,0,0.8), rgba(255,99,71,0.8)), url('https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            background: linear-gradient(rgba(255,69,0,0.82), rgba(255,99,71,0.88)), 
+                        url('https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover fixed;
             color: white;
             text-align: center;
-            padding: 80px 20px;
-            margin: 30px 0;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(255,69,0,0.3);
+            padding: 100px 20px;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255,69,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            animation: shimmer 6s infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        /* Карточки с мощным эффектом подъёма и прозрачности */
+        .feature-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0.95;
+        }
+        .feature-card:hover {
+            transform: translateY(-18px) scale(1.04);
+            box-shadow: 0 30px 60px rgba(255,69,0,0.4);
+            opacity: 1;
         }
 
         /* Подвал */
@@ -174,44 +154,52 @@
             background: linear-gradient(135deg, #ff4500, #ff6347);
             color: white;
             text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
+            padding: 40px 0;
+            margin-top: 80px;
         }
 
-        /* === АДАПТИВНОСТЬ === */
+        /* === АДАПТИВНОСТЬ + РАЗНЫЙ ВИД НА МОБИЛЬНЫХ === */
         @media (max-width: 768px) {
             .header-content { flex-direction: column; text-align: center; }
             .logo-container { margin-bottom: 15px; }
+            .nav-container { flex-direction: column; gap: 0; }
+            nav a, .dropdown > a { border-radius: 0; width: 100%; text-align: center; }
 
-            /* На мобильных — бургер-меню */
-            .nav-container {
-                flex-direction: column;
-                gap: 0;
+            /* ГЕРОЙ-СЕКЦИЯ ПО-ДРУГОМУ НА ТЕЛЕФОНАХ */
+            .hero {
+                padding: 70px 15px;
+                background: linear-gradient(rgba(255,69,0,0.92), rgba(255,50,50,0.95)), 
+                            url('https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') center/cover;
+                border-radius: 12px;
+                margin: 20px 10px;
             }
-            nav a, .dropdown > a {
+            .hero h2 { font-size: 2rem; }
+            .hero p { font-size: 1.2rem; }
+            .hero::after {
+                content: "Перейти в каталог →";
                 display: block;
-                width: 100%;
-                text-align: center;
-                border-radius: 0;
+                margin-top: 25px;
+                padding: 14px 30px;
+                background: white;
+                color: #ff4500;
+                border-radius: 50px;
+                font-weight: bold;
+                animation: pulse 2s infinite;
             }
-            .dropdown-content {
-                position: static;
-                transform: none;
-                box-shadow: none;
-                background: rgba(255,69,0,0.2);
-            }
-            .dropdown:hover .dropdown-content {
-                display: block;
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.08); }
             }
         }
     </style>
 </head>
 <body>
-    <!-- Шапка и навигация с выпадающим меню -->
+
+    <!-- Шапка -->
     <header>
-        <div class="container header-content">
+        <div class="container header-content animate">
             <div class="logo-container">
-                <div class logos>
+                <div class="logo">
                     <img src="https://raw.githubusercontent.com/AMAKEDONS/WEBSITES/main/logo.png" alt="Логотип КачайТело">
                 </div>
                 <h1>КачайТело</h1>
@@ -219,13 +207,12 @@
         </div>
     </header>
 
+    <!-- Навигация -->
     <nav>
         <div class="container nav-container">
-            <a href="index.html">Главная</a>
-            <a href="about.html">О Компании</a>
-            
-            <!-- Выпадающее меню -->
-            <div class="dropdown">
+            <a href="index.html" class="animate">Главная</a>
+            <a href="about.html" class="animate">О Компании</a>
+            <div class="dropdown animate">
                 <a href="catalog.html">Каталог товаров ▼</a>
                 <div class="dropdown-content">
                     <a href="catalog.html#protein">Протеины</a>
@@ -234,20 +221,20 @@
                     <a href="catalog.html#fatburner">Жиросжигатели</a>
                 </div>
             </div>
-            
-            <a href="price.html" class="shake">Прайс-лист</a>
-            <a href="dost.html">Оплата и доставка</a>
+            <a href="price.html" class="shake animate">Прайс-лист</a>
+            <a href="dost.html" class="animate">Оплата и доставка</a>
         </div>
     </nav>
 
     <div class="container">
-        <section class="hero">
+        <!-- Герой-секция (на мобиле — совсем по-другому!) -->
+        <section class="hero animate">
             <h2>КачайТело - лучшие добавки для развития твоего тела!</h2>
             <p>Проверенные и сертифицированные добавки для построения настоящей биомашины.</p>
         </section>
 
-        <section class="features">
-            <div class="feature-card tooltip">
+        <section class="features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; margin: 60px 0;">
+            <div class="feature-card tooltip animate">
                 <h2>Что мы предлагаем?</h2>
                 <p>Широкий ассортимент: протеины, аминокислоты, витамины и многое другое.</p>
                 <span class="tooltiptext">
@@ -256,7 +243,7 @@
                 </span>
             </div>
 
-            <div class="feature-card tooltip shake">
+            <div class="feature-card tooltip shake animate">
                 <h2>Наши преимущества</h2>
                 <p>Быстрая доставка, низкие цены и консультации профессионалов.</p>
                 <span class="tooltiptext">
@@ -267,10 +254,11 @@
         </section>
     </div>
 
-    <footer>
+    <!-- Подвал -->
+    <footer class="animate">
         <div class="container">
             <p>© 2025 КачайТело. Все права защищены.</p>
         </div>
     </footer>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8ef6bd4f2a4da2',t:'MTc2NDg4OTY4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
